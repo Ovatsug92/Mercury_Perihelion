@@ -458,8 +458,10 @@ G = scipy.constants.G
 c = scipy.constants.c
 # Data Sun
 M = 1988500 * (10 ** 24)
+RvolM = 695700*10**3  # Volumetric mean radius (km)	695,700.    0.006*10**10
 # Data Mercury
 m = 0.330 * (10 ** 24)  # 10**24 kg
+Rvolm = 2439.7*10**3  # Volumetric mean radius (km)	2439.7      0.00024*10**10
 Td = 87.969  # days
 T = Td * 24 * 60 * 60  # seconds
 rp = 46.000 * (10 ** 9)  # meters (10**6 km) perihelion
@@ -472,6 +474,7 @@ Data_list = [r'Masa', r'Periodo Orbital ', r'Periodo Orbital', r'perihelio ',
              r'afelio', r'Eje semi-mayor', r'Excentricidad']
 Data_list_dim = ['Kg', 'años', 's', 'm', 'm', 'm', '']
 # Computed quantities
+rs_M = 2*M*G/(c**2)  # Schwarzschild radius Sun 2953.4060640748576  0.0000002953406*10**10
 rb = ra * (1 - E ** 2) ** (1 / 2)  # semiminor
 A = math.pi * (ra * rb)  # Area
 h = (2 * A) / T  # angular momemtum per unit mass
@@ -670,3 +673,4 @@ while run_program:
     elif int(c0) == 8:
         print('Hasta luego.')
         sys.exit()
+# Add Vpyhton?
