@@ -163,7 +163,7 @@ def lang():
 def main_menu():
     """Main menu: Choose only one option between 0-4"""
     global co
-    # Principal list
+    # Main menu
     print(f'{language_os}:\n')
     time.sleep(1.5)
     print(f'1. {language_o1}.')
@@ -186,17 +186,15 @@ def scene_data():
     time.sleep(1)
     gr = input(f'{language_f2}:\n')
     # DATA
-    # Constants (is G a natural or physical constant?)
-    g_constant = 6.67435 * (
-            10 ** (-11))  # (6.674 35 ± 0.000 13)*10**(-11) m**3 kg−1 s**−2 with a relative uncertainty of 19 ppm.
+    g_constant = 6.67435 * (10 ** (-11))  # m**3 kg−1 s**−2 with a relative uncertainty of 19 ppm.
     c = 299792458  # m/s
     # Bulk parameters:  Sun
-    m_sun = 1988500 * (10 ** 24)  # Mass:   Order of 10**24 kg
-    rvolsun = 695700 * 10 ** 3  # Volumetric mean radius	695,700 km.    0.006*10**10
+    m_sun = 1988500 * (10 ** 24)  # Mass:    kg
+    rvolsun = 695700 * 10 ** 3  # Volumetric mean radius	m.
     # Bulk parameters:  Mercury
     # m_merc = 0.330 * (10 ** 24)  # mass  Order of 10**24 kg
-    rvolmerc = 2439.7 * 10 ** 3  # Volumetric mean radius  2439.7 km.      0.00024*10**10
-    rp = 46.000 * (10 ** 9)  # meters (10**6 km) perihelion
+    rvolmerc = 2439.7 * 10 ** 3  # Volumetric mean radius   m.
+    rp = 46.000 * (10 ** 9)  # meters  perihelion
     # Schwarzschild radius of objets
     # rs_m = 2 * m_merc * g / (c ** 2)  # Mercury
     rs_sun = 2 * m_sun * g_constant / (c ** 2)  # Sun
@@ -227,7 +225,7 @@ def scene_data():
                      texture="https://upload.wikimedia.org/wikipedia/commons/3/30/Mercury_in_color_"
                              "-_Prockter07_centered.jpg",
                      make_trail=True, trail_type='points', interval=10, retain=120)
-    # Widget for stop simulation with click
+    # Widget to stop simulation with mouse click
     scenes.bind('click', stop)
     return
 
@@ -248,8 +246,7 @@ def simulation(oi, of):
             rate(500)  # Number of iterations per second.
             r = ro / (1 + E * cos(o * (1 - prec)))  # Ellipse equation (polar coordinates, focus in the origin).
             # Prec: From slider
-            pos = vector(r * cos(o), r * sin(o),
-                         0)  # Definition of Mercury's position vector. Angle "o" from iterations
+            pos = vector(r * cos(o), r * sin(o), 0)  # Definition of Mercury's position vector.
             mercury.pos = r * pos.hat  # New Mercury's position, replaces object's position.
             ggraph.plot(o, r)
             o = o + d  # Iteration process.
@@ -306,7 +303,7 @@ def sliderecc():
     return
 
 
-run = False     # Boolean variable for run and pause function on button.
+run = False  # Boolean variable for run and pause function on button.
 
 
 def runpause(pp):
@@ -325,8 +322,8 @@ def runpause(pp):
     return
 
 
-stopp = True    # Boolean variable for stop function on mouse.
-brk = 1     # auxiliary variable for breaking the while loop on the simulation.
+stopp = True  # Boolean variable for stop function on mouse.
+brk = 1  # auxiliary variable for breaking the while loop on the simulation.
 
 
 def stop():
@@ -357,25 +354,21 @@ def delall():
 
 
 # Starts algorithm
-languagemenu()  # Display the languages menu.
+languagemenu()  # Displays the languages menu.
 lang()  # Replaces the words from the vocabulary of the selected language.
-run_program = True  # Due to the possibility of return to the main menu.
+run_program = True  # Due to the possibility of returning to the main menu.
 while run_program:
-    main_menu()
+    main_menu()  # Displays the simulation options
     if co == 1:
-        scene_data()
-        # plotting the orbits
-        simulation(0, 1000000)
-        # Returning
-        returning()
+        scene_data()  # Preparing the canvas
+        simulation(0, 1000000)  # plotting the orbits
+        returning()  # Returning to the main menu
     if co == 2:
-        o_i = float(input(f'{language_io}:\n'))
-        o_f = float(input(f'{language_if}:\n'))
-        scene_data()
-        # plotting the orbits
-        simulation(o_i, o_f)
-        # Deleting last canvas
-        returning()
+        o_i = float(input(f'{language_io}:\n'))  # Asking for the initial angle
+        o_f = float(input(f'{language_if}:\n'))  # Asking for the final angle
+        scene_data()  # Preparing the canvas
+        simulation(o_i, o_f)  # plotting the orbits
+        returning()  # Returning to the main menu
     elif int(co) == 3:
-        print(f'{language_bye}.')
-        sys.exit()
+        print(f'{language_bye}.')  # Print message
+        sys.exit()  # Exiting program
